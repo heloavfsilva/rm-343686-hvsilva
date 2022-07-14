@@ -1,0 +1,12 @@
+oc new-app postgresql-persistent --name sample-database --param DATABASE_SERVICE_NAME=sample-database --param POSTGRESQL_USER=sampledb --param POSTGRESQL_PASSWORD=sampledb --param POSTGRESQL_DATABASE=sampledboc
+
+get pods
+oc get dc
+oc get deployment
+oc set env deployment/blog-django-py-git BLOG_SITE_NAME='RM-343686'
+oc get pods
+oc set env deployment/blog-django-py-git DATABASE_URL=postgresql://sampledb:sampledb@sample-database:5432/sampledb
+
+oc get pods
+oc rsh blog-django-py-git-6c9ccbc64-r7ttd
+oc get podscp .s2i/action_hooks/setup ../setup
